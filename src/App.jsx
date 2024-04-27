@@ -1,17 +1,14 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
-import {
-  AppBar, Container, Grid, Typography,
-} from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Container, Grid } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { v4 as uuidv4 } from 'uuid';
-import BolButton from './components/BolButton';
 import SyllableCell from './components/SyllableCell';
-import allBols from './bols';
 import checkIfLocalStorageExists from './helpers';
 import TopMenu from './components/TopMenu';
 import BeatInterval from './beat-interval';
+import Footer from './components/Footer';
 
 function App() {
   const [timeSignature, setTimeSignature] = useState(16);
@@ -31,15 +28,10 @@ function App() {
     },
   });
 
-  const footerColumnStyle = {
-    marginTop: 15,
-    marginBottom: 15,
-  };
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Container className="App">
+      <Container className="App" maxWidth="100%">
         <TopMenu
           isPlaying={isPlaying}
           songs={songs}
@@ -103,7 +95,7 @@ function App() {
             beat.current.stop();
           }}
         />
-        <Grid container spacing={2} columns={timeSignature} style={{ marginTop: 100 }}>
+        <Grid container spacing={0} columns={timeSignature} style={{ marginTop: 25 }}>
           {syllables.map((syllable, index) => {
             const key = `syllable-${index}`;
             return (
@@ -127,54 +119,12 @@ function App() {
             );
           })}
         </Grid>
-        <AppBar position="fixed" color="transparent" sx={{ top: 'auto', bottom: 0 }}>
-          <Grid container spacing={2} columns={11}>
-            <Grid item xs={12} sm={1} />
-            {Object.keys(allBols).map((hand) => {
-              const key = `bol-${hand}`;
-              return (
-                <Grid item xs={12} sm={3} key={key} style={footerColumnStyle}>
-                  <Typography variant="h6">
-                    {allBols[hand].title}
-                  </Typography>
-                  {Object.keys(allBols[hand].bols).map((bols) => {
-                    const { title: bolTitle } = allBols[hand].bols[bols];
-                    const bolKey = `${hand}-${bols}`;
-                    return (
-                      <BolButton
-                        title={bolTitle}
-                        key={bolKey}
-                        onClick={() => {
-                          if (editingIndex !== -1) {
-                            const newSyllables = syllables.map((syllable, i) => {
-                              if (i === editingIndex) {
-                                return bolTitle;
-                              }
-                              return syllable;
-                            });
-                            setSyllables(newSyllables);
-                            setEditingIndex(-1);
-                          } else {
-                            setSyllables([...syllables, bolTitle]);
-                          }
-                        }}
-                      />
-                    );
-                  })}
-                </Grid>
-              );
-            })}
-            <Grid item xs={12} sm={1} style={footerColumnStyle}>
-              <Typography variant="h6">Util</Typography>
-              <BolButton
-                title="Rest"
-                onClick={() => {
-                  setSyllables([...syllables, '_']);
-                }}
-              />
-            </Grid>
-          </Grid>
-        </AppBar>
+        <Footer
+          editingIndex={editingIndex}
+          syllables={syllables}
+          setSyllables={setSyllables}
+          setEditingIndex={setEditingIndex}
+        />
       </Container>
     </ThemeProvider>
   );

@@ -70,14 +70,14 @@ const bothHands = {
     Dha: {
       title: 'Dha',
     },
+    Dhe: {
+      title: 'Dhe',
+    },
     'Dhin 1': {
       title: 'Dhin',
     },
     'Dhin 2': {
       title: 'Dhin',
-    },
-    Dhe: {
-      title: 'Dhe',
     },
     Kre: {
       title: 'Kre',

@@ -18,7 +18,7 @@ function LoadModal({
     p: 4,
     borderRadius: 1,
     border: 1,
-    borderColor: 'info.light',
+    borderColor: 'text.primary',
   };
 
   return (
@@ -27,10 +27,10 @@ function LoadModal({
       onClose={handleClose}
     >
       <Box sx={style}>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item xs={12} textAlign="center">
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Load Song
+            <Typography variant="h6" component="h2">
+              Load
             </Typography>
           </Grid>
           {songs && Object.keys(songs).map((key) => {
@@ -48,6 +48,8 @@ function LoadModal({
                       });
                       handleClose();
                     }}
+                    color="inherit"
+                    fullWidth
                   >
                     {title !== '' ? title : key}
                   </Button>
@@ -59,6 +61,7 @@ function LoadModal({
                     onClick={() => {
                       onDelete({ uuid: key });
                     }}
+                    style={{ marginTop: 5 }}
                   >
                     <Delete fontSize="inherit" />
                   </IconButton>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  AppBar, Button, ButtonGroup, Grid, IconButton, TextField, useTheme,
+  Button, ButtonGroup, Grid, IconButton, TextField, useTheme,
 } from '@mui/material';
 import { PauseCircle, PlayCircle, StopCircle } from '@mui/icons-material';
 import PropTypes from 'prop-types';
@@ -26,20 +26,22 @@ function TopMenu(props) {
   } = props;
   const [open, setOpen] = useState(false);
   const theme = useTheme();
-  const style = isPlaying ? { color: theme.palette.warning.main } : {};
+  const style = isPlaying ? { color: theme.palette.success.main } : {};
 
   const fileButtons = (
-    <Grid item xs={12} sm={2} textAlign="left">
+    <Grid item xs={12} sm={2}>
       <ButtonGroup>
-        <Button onClick={newCallback}>
+        <Button onClick={newCallback} color="inherit">
           New
         </Button>
-        <Button onClick={saveCallback}>
+        <Button onClick={saveCallback} color="inherit">
           Save
         </Button>
-        <Button onClick={() => {
-          setOpen(true);
-        }}
+        <Button
+          onClick={() => {
+            setOpen(true);
+          }}
+          color="inherit"
         >
           Load
         </Button>
@@ -49,7 +51,7 @@ function TopMenu(props) {
 
   const songButtons = (
     <>
-      <Grid item xs={12} sm={1}>
+      <Grid item xs={12} sm={6} md={6} lg={1}>
         <TextField
           id="timeSignature"
           label="Time Signature"
@@ -60,10 +62,9 @@ function TopMenu(props) {
           }}
           variant="standard"
           fullWidth
-          focused
         />
       </Grid>
-      <Grid item xs={12} sm={1}>
+      <Grid item xs={12} sm={6} md={6} lg={1}>
         <TextField
           id="bpm"
           label="BPM"
@@ -74,10 +75,9 @@ function TopMenu(props) {
           }}
           variant="standard"
           fullWidth
-          focused
         />
       </Grid>
-      <Grid item xs={12} sm={1} style={{ paddingLeft: 7, margin: '0 auto' }}>
+      <Grid item xs={12} sm={6} md={6} lg={1} style={{ paddingLeft: 0 }}>
         <IconButton onClick={playCallBack}>
           <PlayCircle style={style} />
         </IconButton>
@@ -92,7 +92,7 @@ function TopMenu(props) {
   );
 
   const titleField = (
-    <Grid item xs={12} sm={7}>
+    <Grid item xs={12} sm={12} md={12} lg={7}>
       <TextField
         id="title"
         label="Title"
@@ -103,13 +103,12 @@ function TopMenu(props) {
         }}
         variant="standard"
         fullWidth
-        focused
       />
     </Grid>
   );
 
   return (
-    <AppBar position="fixed" color="transparent" sx={{ top: 0, bottom: 'auto' }}>
+    <>
       <Grid
         container
         spacing={2}
@@ -134,7 +133,7 @@ function TopMenu(props) {
           onDeleteCallback(deleteUuid);
         }}
       />
-    </AppBar>
+    </>
   );
 }
 

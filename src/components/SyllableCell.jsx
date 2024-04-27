@@ -1,39 +1,58 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   ButtonGroup, Grid, IconButton, Typography, useTheme,
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import findHandForSyllable from '../find-hand-for-syllable';
 
 function SyllableCell({
-  syllable, onDelete, onEdit, isEditing, isPlaying,
+  syllable, onDelete, onEdit, isEditing, isPlaying, size = 1,
 }) {
   const [hover, setHover] = useState(false);
   const theme = useTheme();
+  const color = useRef(() => {
+    try {
+      const hand = findHandForSyllable(syllable);
+      switch (hand) {
+        case 'rightHand':
+          return theme.palette.success.main;
+        case 'leftHand':
+          return theme.palette.primary.main;
+        case 'bothHands':
+          return theme.palette.secondary.main;
+        default:
+          return theme.palette.info.main;
+      }
+    } catch (e) {
+      return 'inherit';
+    }
+  });
 
   const style = {
-    padding: 0,
     border: '1px dotted black',
     paddingTop: 15,
     paddingBottom: 15,
+    paddingLeft: 0,
     position: 'relative',
+    color: color.current(),
   };
 
   if (isEditing) {
-    style.color = theme.palette.success.main;
+    style.color = theme.palette.warning.main;
   }
 
   if (isPlaying) {
-    style.color = theme.palette.warning.main;
-    style.borderColor = theme.palette.warning.main;
+    style.color = theme.palette.error.main;
+    style.borderColor = theme.palette.error.main;
   } else {
-    style.borderColor = 'black';
+    style.borderColor = theme.palette.text.primary;
   }
 
   return (
     <Grid
       item
-      xs={1}
+      xs={size}
       style={style}
       onMouseOver={() => { setHover(true); }}
       onMouseOut={() => { setHover(false); }}
@@ -70,6 +89,11 @@ SyllableCell.propTypes = {
   onEdit: PropTypes.func.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  size: PropTypes.number,
+};
+
+SyllableCell.defaultProps = {
+  size: 1,
 };
 
 export default SyllableCell;
