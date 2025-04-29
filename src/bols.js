@@ -82,6 +82,9 @@ const bothHands = {
     Kre: {
       title: 'Kre',
     },
+    _: {
+      title: '_',
+    },
   },
 };
 

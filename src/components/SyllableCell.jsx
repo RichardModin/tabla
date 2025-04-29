@@ -30,7 +30,7 @@ function SyllableCell({
   });
 
   const style = {
-    border: '1px dotted black',
+    border: '2px dotted black',
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 0,
@@ -43,10 +43,10 @@ function SyllableCell({
   }
 
   if (isPlaying) {
-    style.color = theme.palette.error.main;
-    style.borderColor = theme.palette.error.main;
-  } else {
+    style.color = theme.palette.text.primary;
     style.borderColor = theme.palette.text.primary;
+  } else {
+    style.borderColor = '#343434';
   }
 
   return (

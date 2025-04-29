@@ -14,11 +14,11 @@ function Footer(props) {
   return (
     <Accordion
       sx={{
-        position: 'fixed',
+        position: 'absolute',
         bottom: 0,
         left: 0,
         maxHeight: '50%',
-        overflowX: 'scroll',
+        width: '100%',
       }}
     >
       <AccordionSummary expandIcon={<ExpandMore />} />
@@ -59,16 +59,6 @@ function Footer(props) {
               </Grid>
             );
           })}
-          <Grid item xs={3} sm={1} textAlign="center">
-            <Typography variant="h6">Util</Typography>
-            <BolButton
-              title="_"
-              hand="info"
-              onClick={() => {
-                setSyllables([...syllables, '_']);
-              }}
-            />
-          </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>

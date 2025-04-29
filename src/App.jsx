@@ -31,7 +31,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Container className="App" maxWidth="100%">
+      <Container className="App" maxWidth="100%" style={{ overFlowY: 'auto' }}>
         <TopMenu
           isPlaying={isPlaying}
           songs={songs}
@@ -119,13 +119,13 @@ function App() {
             );
           })}
         </Grid>
-        <Footer
-          editingIndex={editingIndex}
-          syllables={syllables}
-          setSyllables={setSyllables}
-          setEditingIndex={setEditingIndex}
-        />
       </Container>
+      <Footer
+        editingIndex={editingIndex}
+        syllables={syllables}
+        setSyllables={setSyllables}
+        setEditingIndex={setEditingIndex}
+      />
     </ThemeProvider>
   );
 }
